@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Terser Demo</title>
+    <meta name="description"
+          content="Vue based demo site. It just shows formatted MAX_SAFE_INTEGER value. Click on the number and it will change the color.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body {
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+    <link rel="stylesheet" href="./dist/style.css">
+</head>
+<body>
+
+<div id="app"></div>
+
+<script type="module">
+    // Add search param `dev=true` for developer Vue version.
+    // Add search param `min=true` for minified version of the app script.
+    // For example, `dev=true&min=true`
+
+    const dev = JSON.parse(new URL(location.href).searchParams.get("dev"));
+    const min = JSON.parse(new URL(location.href).searchParams.get("min"));
+    Promise.resolve()
+        .then(_ => appendScript(`https://cdn.jsdelivr.net/npm/vue/dist/vue${dev ? "" : ".runtime.min"}.js`))
+        .then(_ => appendScript(`./dist/index${min ? ".min" : ""}.js`));
+
+    function appendScript(src) {
+        return new Promise(resolve => {
+            const script = document.createElement("script");
+            script.onload = resolve;
+            script.src = src;
+            document.querySelector("body").append(script);
+        });
+    }
+</script>
+
+</body>
+</html>
