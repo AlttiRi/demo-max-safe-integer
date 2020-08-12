@@ -1,6 +1,6 @@
 It's the demo site. 
 
-It just shows `MAX_SAFE_INTEGER` value. 
+It just shows JavaScript's `MAX_SAFE_INTEGER` value. 
 9007199254740991.
 With formatting. At the center.
 
