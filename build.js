@@ -3,7 +3,7 @@ import vue from "rollup-plugin-vue";
 import replace from "@rollup/plugin-replace";
 import css from "rollup-plugin-css-only";
 import resolve from "@rollup/plugin-node-resolve";
-import terser from "terser";
+import {minify} from "terser";
 import fs from "fs/promises";
 
 
@@ -56,7 +56,7 @@ const outputOptions = {
 async function build() {
     const {code, map} = await bundle();
 
-    const {code: codeMin, map: mapMin} = await minify(code, map);
+    const {code: codeMin, map: mapMin} = await _minify(code, map);
     await write(codeMin, mapMin, filename + ".min.js");
 }
 
@@ -72,7 +72,7 @@ export async function bundle() {
     };
 }
 
-async function minify(code, map) {
+async function _minify(code, map) {
     /** @type {import("terser").MinifyOptions} */
     const options = {
         sourceMap: {
@@ -84,7 +84,7 @@ async function minify(code, map) {
         mangle: false
     };
 
-    const result = terser.minify(code, options);
+    const result = await minify(code, options);
     return {
         code: result.code,
         map: result.map

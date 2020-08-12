@@ -1,13 +1,13 @@
 {
-  "name": "terser-vue",
-  "version": "1.0.0",
-  "description": "Vue based demo site. Just shows MAX_SAFE_INTEGER.",
+  "name": "demo-max-safe-integer",
+  "version": "1.0.1",
+  "description": "The demo site. It just shows MAX_SAFE_INTEGER value.\n",
   "type": "module",
   "scripts": {
     "build": "node build.js"
   },
   "keywords": [
-    "example"
+    "demo", "example", "site"
   ],
   "license": "MIT",
   "dependencies": {
@@ -19,7 +19,7 @@
     "rollup-plugin-css-only": "^2.1.0",
     "@rollup/plugin-replace": "^2.3.3",
     "@rollup/plugin-node-resolve": "^8.1.0",
-    "terser": "^4.8.0",
+    "terser": "^5.0.0",
     "vue-template-compiler": "^2.6.11"
   }
 }
