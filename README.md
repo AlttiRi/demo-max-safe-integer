@@ -26,7 +26,7 @@ Load the minified (with Terser) application code:
 
 Or both:
 
-[?dev=true&min=true](https://alttiri.github.io/demo-max-safe-integer/?min=true)
+[?dev=true&min=true](https://alttiri.github.io/demo-max-safe-integer/?dev=true&min=true)
 
 
 But the minified version has not working Source Maps. Is it bug of Terser? (I have used [the disabled `compress` option](https://github.com/terser/terser#source-maps-and-debugging) and even `mangle` one too.)
