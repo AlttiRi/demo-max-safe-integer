@@ -2,21 +2,20 @@
   It works OK only with integer numbers and partially with decimal numbers
   (no support of `1.2e-34`, `Infinity`, `NaN`, for example)
  -->
-<template>
-  <span class="formatted-number">
-    <span class="minus" v-if="isNegative">-</span
-    ><span class="integer"
-    ><NumberTrio
+<template lang="pug">
+span.formatted-number
+  span.minus(v-if="isNegative") -
+  span.integer
+    NumberTrio(
         v-for="(integerTrio, index) of integerTrios"
         :value="integerTrio"
         :position="index"
         :count="integerTrios.length"
         :key="index"
         :padding="padding"
-    /></span
-    ><span class="point" v-if="decimalTrimmed">.</span
-    ><span class="decimal" v-if="decimalTrimmed">{{decimalTrimmed}}</span>
-  </span>
+    )
+  span.point(v-if="decimalTrimmed") .
+  span.decimal(v-if="decimalTrimmed") {{decimalTrimmed}}
 </template>
 
 <script>

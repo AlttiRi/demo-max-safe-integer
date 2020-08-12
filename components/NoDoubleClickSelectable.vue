@@ -1,7 +1,6 @@
-<template>
-  <span class="no-double-click-selectable" @click="preventUnnecessarySelecting">
-    <slot></slot>
-  </span>
+<template lang="pug">
+span.no-double-click-selectable(@click="preventUnnecessarySelecting")
+  slot
 </template>
 
 <script>
@@ -23,5 +22,5 @@ export default {
       }, 500);
     }
   }
-}
+};
 </script>

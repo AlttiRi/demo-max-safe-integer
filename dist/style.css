@@ -1,25 +1,25 @@
 /* Main.vue */
-.main[data-v-926574d4] {
+.main[data-v-dabb1bec] {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
 }
-.main[data-v-926574d4] .formatted-number {
+.main[data-v-dabb1bec] .formatted-number {
   font-size: 8vw;
   color: cornflowerblue;
   text-shadow: 0 0 2vw #08080840;
 }
-.main[data-v-926574d4] .formatted-number .trio .pad {
+.main[data-v-dabb1bec] .formatted-number .trio .padded {
   letter-spacing: 1.6vw;
 }
 @media all and (min-width: 1500px) {
-.main[data-v-926574d4] .formatted-number {
+.main[data-v-dabb1bec] .formatted-number {
     font-size: 120px;
     text-shadow: 0 0 30px #08080840;
 }
-.main[data-v-926574d4] .formatted-number .trio .pad {
+.main[data-v-dabb1bec] .formatted-number .trio .padded {
     letter-spacing: 24px;
 }
 }

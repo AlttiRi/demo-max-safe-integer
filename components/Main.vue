@@ -1,11 +1,8 @@
-<template>
-  <div class="main">
-    <span @click="onClick">
-      <NoDoubleClickSelectable>
-        <FormattedNumber :style="{color}" :number="value"/>
-      </NoDoubleClickSelectable>
-    </span>
-  </div>
+<template lang="pug">
+div.main
+  span.number(@click="onClick")
+    NoDoubleClickSelectable
+      FormattedNumber(:style="{color}" :number="value")
 </template>
 
 <script>
@@ -55,7 +52,7 @@ function randomHexColor() {
     color: cornflowerblue
     text-shadow: 0 0 2vw #08080840
     .trio
-      .pad
+      .padded
         letter-spacing: 1.6vw
 
 @media all and (min-width: 1500px)
@@ -64,6 +61,6 @@ function randomHexColor() {
       font-size: 120px
       text-shadow: 0 0 30px #08080840
       .trio
-        .pad
+        .padded
           letter-spacing: 24px
 </style>

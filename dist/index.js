@@ -9,18 +9,6 @@
   //
   //
   //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
 
   var script = {
     name: "NumberTrio",
@@ -159,7 +147,7 @@
       _vm.part2
         ? _c(
             "span",
-            { staticClass: "pad", style: { letterSpacing: _vm.padding } },
+            { staticClass: "padded", style: { letterSpacing: _vm.padding } },
             [_vm._v(_vm._s(_vm.part2))]
           )
         : _vm._e()
@@ -341,7 +329,6 @@
   //
   //
   //
-  //
 
   var script$2 = {
     name: "NoDoubleClickSelectable",
@@ -453,7 +440,7 @@
     return _c("div", { staticClass: "main" }, [
       _c(
         "span",
-        { on: { click: _vm.onClick } },
+        { staticClass: "number", on: { click: _vm.onClick } },
         [
           _c(
             "NoDoubleClickSelectable",
@@ -476,7 +463,7 @@
     /* style */
     const __vue_inject_styles__$3 = undefined;
     /* scoped */
-    const __vue_scope_id__$3 = "data-v-926574d4";
+    const __vue_scope_id__$3 = "data-v-dabb1bec";
     /* module identifier */
     const __vue_module_identifier__$3 = undefined;
     /* functional template */

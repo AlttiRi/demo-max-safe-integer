@@ -1,19 +1,7 @@
-<!--<template>-->
-<!--  <span class="trio"><span-->
-<!--      v-if="part1"-->
-<!--  >{{part1}}</span-->
-<!--  ><span-->
-<!--      :style="{letterSpacing: padding}"-->
-<!--      class="pad"-->
-<!--      v-if="part2"-->
-<!--  >{{part2}}</span-->
-<!--  ></span>-->
-<!--</template>-->
-
 <template lang="pug">
-  span.trio
-    span(v-if="part1") {{part1}}
-    span.pad(v-if="part2" :style="{letterSpacing: padding}") {{part2}}
+span.trio
+  span(v-if="part1") {{part1}}
+  span.padded(v-if="part2" :style="{letterSpacing: padding}") {{part2}}
 </template>
 
 <script>
@@ -64,5 +52,5 @@ export default {
       return this.position === this.count - 1;
     }
   }
-}
+};
 </script>
