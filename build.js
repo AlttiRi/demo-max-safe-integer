@@ -6,7 +6,6 @@ import resolve from "@rollup/plugin-node-resolve";
 import {minify} from "terser";
 import fs from "fs/promises";
 
-
 const dist = "./dist/";
 const filename = "index";
 
@@ -16,20 +15,7 @@ const inputOptions = {
     plugins: [
         css({
             // output: `${dist}style.css`
-            output: async function(styles, styleNodes, meta) {
-                const styleBunch = Object.values(styleNodes)
-                    .filter(text => text.trim())
-                    .map(text => {
-                        if (text.includes("sourceMappingURL")) {
-                            const style = text.match(/[\s\S]+(?=\/\*# sourceMappingURL)/)[0];
-                            const filename = text.match(/(?<=\/\*# sourceMappingURL=).+(?=\.map \*\/)/)[0];
-                            return "/* " + filename + " */\n" + style;
-                        }
-                        return text;
-                    })
-                    .reduce((pre, acc) => pre + acc, "");
-                await write(styleBunch, null, `style.css`);
-            }
+            output: writeVueStyles
         }),
         vue({
             css: false,
@@ -91,6 +77,20 @@ async function _minify(code, map) {
     };
 }
 
+async function writeVueStyles(styles, styleNodes, meta) {
+    const styleBunch = Object.values(styleNodes)
+        .filter(text => text.trim())
+        .map(text => {
+            if (text.includes("sourceMappingURL")) {
+                const style = text.match(/[\s\S]+(?=\/\*# sourceMappingURL)/)[0];
+                const filename = text.match(/(?<=\/\*# sourceMappingURL=).+(?=\.map \*\/)/)[0];
+                return "/* " + filename + " */\n" + style;
+            }
+            return text;
+        })
+        .reduce((pre, acc) => pre + acc, "");
+    await write(styleBunch, null, `style.css`);
+}
 
 export async function write(code, map, name) {
     await fs.mkdir(dist, {recursive: true});
