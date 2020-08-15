@@ -4,6 +4,7 @@ import replace from "@rollup/plugin-replace";
 import css from "rollup-plugin-css-only";
 import resolve from "@rollup/plugin-node-resolve";
 import {minify} from "terser";
+import MagicString from "magic-string";
 import fs from "fs/promises";
 
 const dist = "./dist/";
@@ -26,6 +27,7 @@ const inputOptions = {
         resolve({
             browser: true
         }),
+        appendFinally(sourceMappingURL(filename))
     ],
     external: ["vue"], // In order to use "vue.runtime.min.js", (the app code is NOT compressed and mangled)
 };
@@ -41,23 +43,23 @@ const outputOptions = {
 
 async function build() {
     const {code, map} = await bundle();
+    await write(code, map, filename + ".js");
 
     const {code: codeMin, map: mapMin} = await _minify(code, map);
     await write(codeMin, mapMin, filename + ".min.js");
 }
 
 /** @returns {Promise<{code: String, map: import("rollup").SourceMap}>} */
-export async function bundle() {
+async function bundle() {
     const bundle = await rollup(inputOptions);
     const result = await bundle.generate(outputOptions);
-    await bundle.write(outputOptions);
-
     return {
         code: result.output[0].code,
         map:  result.output[0].map
     };
 }
 
+/** @returns {Promise<{code: String, map: import("terser").RawSourceMap}>} */
 async function _minify(code, map) {
     /** @type {import("terser").MinifyOptions} */
     const options = {
@@ -69,11 +71,11 @@ async function _minify(code, map) {
         compress: false,
         mangle: false
     };
-
+    /** @type {{code: string, map: string}} */
     const result = await minify(code, options);
     return {
         code: result.code,
-        map: result.map
+        map: JSON.parse(result.map)
     };
 }
 
@@ -92,12 +94,56 @@ async function writeVueStyles(styles, styleNodes, meta) {
     await write(styleBunch, null, `style.css`);
 }
 
-export async function write(code, map, name) {
+const pathsMapping = [
+    ["../node_modules/", "node-modules:///"],
+    ["../", "source-maps:///"],
+];
+
+async function write(code, map, name) {
     await fs.mkdir(dist, {recursive: true});
     await fs.writeFile(`${dist}${name}`, code);
     if (map) {
-        await fs.writeFile(`${dist}${name}.map`, map);
+        let _map = changeSourceMapPaths(map);
+        _map = JSON.stringify(_map);
+        await fs.writeFile(`${dist}${name}.map`, _map);
     }
+}
+
+function changeSourceMapPaths(map) {
+    function _beautify(str) {
+        return pathsMapping.reduce((pre, [value, replacer]) => {
+            return pre.replace(value, replacer)
+        }, str);
+    }
+    for (let i = 0; i < map.sources.length; i++) {
+        map.sources[i] = _beautify(map.sources[i]);
+    }
+    return map;
+}
+
+
+// It's used to append `//# sourceMappingURL=name.js.map`
+function appendFinally(text) {
+    return {
+        name: "append-text-before-end",
+        renderChunk(code, chunkInfo, outputOptions) {
+            if (!code) {
+                return null;
+            }
+
+            const magicString = new MagicString(code);
+            magicString.append(text);
+            code = magicString.toString();
+            const map = magicString.generateMap({
+                hires: true,
+                includeContent: true,
+            });
+            return {code, map};
+        }
+    };
+}
+function sourceMappingURL(name, ext = "js") {
+    return `\n//# sourceMappingURL=${name}.${ext}.map`
 }
 
 !async function main() {
