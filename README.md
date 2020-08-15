@@ -29,7 +29,9 @@ Or both:
 [?dev=true&min=true](https://alttiri.github.io/formatted-number/?dev=true&min=true)
 
 
-But the minified version has not working Source Maps. Is it bug of Terser? (I have used [the disabled `compress` option](https://github.com/terser/terser#source-maps-and-debugging) and even `mangle` one too.)
+But the minified version has not working Source Maps. Is it bug of Terser? 
+(I have used [the disabled `compress` option](https://github.com/terser/terser#source-maps-and-debugging) 
+and even `mangle` one too.)
 You can see the original, not transpiled, files, but you can't debug them with break points.
 The break point is gray, not red (in Chromium 84 based browser).
 
