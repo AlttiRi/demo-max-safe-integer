@@ -4,7 +4,7 @@ It just shows JavaScript's `MAX_SAFE_INTEGER` value.
 9007199254740991.
 With formatting. At the center.
 
-And it changes the color by the click. 
+And it changes the color on the click with no unexpected text selection on double click.
 
 That's all.
 
