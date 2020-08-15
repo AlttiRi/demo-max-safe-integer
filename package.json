@@ -1,7 +1,7 @@
 {
-  "name": "demo-max-safe-integer",
-  "version": "1.0.1",
-  "description": "The demo site. It just shows MAX_SAFE_INTEGER value.\n",
+  "name": "formatted-number",
+  "version": "1.1.0",
+  "description": "The demo site. It just shows formatted MAX_SAFE_INTEGER value.\n",
   "type": "module",
   "scripts": {
     "build": "node build.js"
