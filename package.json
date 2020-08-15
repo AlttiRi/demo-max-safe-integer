@@ -7,7 +7,9 @@
     "build": "node build.js"
   },
   "keywords": [
-    "demo", "example", "site"
+    "demo",
+    "example",
+    "site"
   ],
   "license": "MIT",
   "dependencies": {
