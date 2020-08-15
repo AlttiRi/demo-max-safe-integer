@@ -29,10 +29,13 @@
     // Add search param `min=true` for minified version of the app script.
     // For example, `dev=true&min=true`
 
-    const dev = JSON.parse(new URL(location.href).searchParams.get("dev"));
-    const min = JSON.parse(new URL(location.href).searchParams.get("min"));
+    const url = new URL(location.href);
+    const dev = JSON.parse(url.searchParams.get("dev"));
+    const min = JSON.parse(url.searchParams.get("min"));
+    const _dev = dev || ["localhost", "127.0.0.1"].includes(url.hostname);
+
     Promise.resolve()
-        .then(_ => appendScript(`https://cdn.jsdelivr.net/npm/vue/dist/vue.runtime${dev ? "" : ".min"}.js`))
+        .then(_ => appendScript(`https://cdn.jsdelivr.net/npm/vue/dist/vue.runtime${_dev ? "" : ".min"}.js`))
         .then(_ => appendScript(`./dist/index${min ? ".min" : ""}.js`));
 
     function appendScript(src) {
