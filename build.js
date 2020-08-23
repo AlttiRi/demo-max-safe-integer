@@ -65,7 +65,7 @@ async function _minify(code, map) {
     const options = {
         sourceMap: {
             content: map,
-            url: filename + ".js.map",
+            url: filename + ".min.js.map",
             includeSources: true
         },
         compress: false,
