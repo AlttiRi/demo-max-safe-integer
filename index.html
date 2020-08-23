@@ -32,11 +32,14 @@
     const url = new URL(location.href);
     const dev = JSON.parse(url.searchParams.get("dev"));
     const min = JSON.parse(url.searchParams.get("min"));
-    const _dev = dev || ["localhost", "127.0.0.1"].includes(url.hostname);
+    const isLocalHost = ["localhost", "127.0.0.1"].includes(url.hostname);
+    
+    const _dev = dev !== null ? dev : isLocalHost;
+    const _min = min !== null ? min : !_dev;
 
     Promise.resolve()
         .then(_ => appendScript(`https://cdn.jsdelivr.net/npm/vue/dist/vue.runtime${_dev ? "" : ".min"}.js`))
-        .then(_ => appendScript(`./dist/index${min ? ".min" : ""}.js`));
+        .then(_ => appendScript(`./dist/index${_min ? ".min" : ""}.js`));
 
     function appendScript(src) {
         return new Promise(resolve => {
