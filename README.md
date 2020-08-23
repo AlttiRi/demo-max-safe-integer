@@ -17,12 +17,9 @@ That's all.
 
 You can also load the developer version of Vue.js by specifying the search parameters of the URL.
 (It allows you to debug the site with [Vue.js devtools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd).)
-Here is:
-[?dev=true](https://alttiri.github.io/formatted-number/?dev=true)
 
-Load the minified application code: [?min=true](https://alttiri.github.io/formatted-number/?min=true)
-
-Or both: [?dev=true&min=true](https://alttiri.github.io/formatted-number/?dev=true&min=true)
+Here is: [?dev=true](https://alttiri.github.io/formatted-number/?dev=true)
 
 It also has the debuggable Source Maps:
+
 ![debuggable](imgs/debuggable.png "The break point is red")
