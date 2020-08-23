@@ -7,7 +7,7 @@ on:
   push:
     branches: [ master ]
 jobs:
-  Deploy: # Copy `index.html` and `dist/*` files to `gh-pages` branch for deploying on GHP
+  Deploy: # Will copy `index.html` and `dist/*` files to `gh-pages` branch for deploying on GHP
     runs-on: ubuntu-latest
     steps:
     - uses: actions/setup-node@v1
