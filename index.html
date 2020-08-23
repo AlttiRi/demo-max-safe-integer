@@ -33,7 +33,7 @@
     const dev = JSON.parse(url.searchParams.get("dev"));
     const min = JSON.parse(url.searchParams.get("min"));
     const isLocalHost = ["localhost", "127.0.0.1"].includes(url.hostname);
-    
+
     const _dev = dev !== null ? dev : isLocalHost;
     const _min = min !== null ? min : !_dev;
 
