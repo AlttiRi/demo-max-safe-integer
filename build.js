@@ -3,7 +3,7 @@ import vue from "rollup-plugin-vue";
 import replace from "@rollup/plugin-replace";
 import css from "rollup-plugin-css-only";
 import resolve from "@rollup/plugin-node-resolve";
-import {minify} from "terser";
+import {minify as terser} from "terser";
 import MagicString from "magic-string";
 import fs from "fs/promises";
 
@@ -42,15 +42,15 @@ const outputOptions = {
 };
 
 async function build() {
-    const {code, map} = await bundle();
-    await write(code, map, filename + ".js");
+    const {code, map} = await bundle(inputOptions, outputOptions);
+    await write(code, map, filename + ".js", dist);
 
-    const {code: codeMin, map: mapMin} = await _minify(code, map);
-    await write(codeMin, mapMin, filename + ".min.js");
+    const {code: codeMin, map: mapMin} = await minify(code, map, filename);
+    await write(codeMin, mapMin, filename + ".min.js", dist);
 }
 
 /** @returns {Promise<{code: String, map: import("rollup").SourceMap}>} */
-async function bundle() {
+async function bundle(inputOptions, outputOptions) {
     const bundle = await rollup(inputOptions);
     const result = await bundle.generate(outputOptions);
     return {
@@ -60,7 +60,7 @@ async function bundle() {
 }
 
 /** @returns {Promise<{code: String, map: import("terser").RawSourceMap}>} */
-async function _minify(code, map) {
+async function minify(code, map, filename) {
     /** @type {import("terser").MinifyOptions} */
     const options = {
         sourceMap: {
@@ -72,7 +72,7 @@ async function _minify(code, map) {
         mangle: false
     };
     /** @type {{code: string, map: string}} */
-    const result = await minify(code, options);
+    const result = await terser(code, options);
     return {
         code: result.code,
         map: JSON.parse(result.map)
@@ -91,7 +91,7 @@ async function writeVueStyles(styles, styleNodes, meta) {
             return text;
         })
         .reduce((pre, acc) => pre + acc, "");
-    await write(styleBunch, null, `style.css`);
+    await write(styleBunch, null, `style.css`, dist);
 }
 
 const pathsMapping = [
@@ -99,7 +99,7 @@ const pathsMapping = [
     ["../", "source-maps:///"],
 ];
 
-async function write(code, map, name) {
+async function write(code, map, name, dist) {
     await fs.mkdir(dist, {recursive: true});
     await fs.writeFile(`${dist}${name}`, code);
     if (map) {
