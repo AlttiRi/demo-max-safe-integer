@@ -25,4 +25,5 @@ Load the minified application code: [?min=true](https://alttiri.github.io/format
 Or both: [?dev=true&min=true](https://alttiri.github.io/formatted-number/?dev=true&min=true)
 
 It also has the debuggable Source Maps:
+
 ![debuggable](imgs/debuggable.png "The break point is red")
