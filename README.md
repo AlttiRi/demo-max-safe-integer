@@ -23,3 +23,5 @@ Here is: [?dev=true](https://alttiri.github.io/formatted-number/?dev=true)
 It also has the debuggable Source Maps:
 
 ![debuggable](imgs/debuggable.png "The break point is red")
+
+...and auto-deployng to Github Pages by Github Actions.
