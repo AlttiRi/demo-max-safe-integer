@@ -11,6 +11,7 @@ const dist = "./dist/";
 const filename = "index";
 
 
+/** @type {import("rollup").InputOptions} */
 const inputOptions = {
     input: `${filename}.js`,
     plugins: [
@@ -32,6 +33,7 @@ const inputOptions = {
     external: ["vue"], // In order to use "vue.runtime.min.js", (the app code is NOT compressed and mangled)
 };
 
+/** @type {import("rollup").OutputOptions} */
 const outputOptions = {
     format: "iife",
     file: `${dist}${filename}.js`,
