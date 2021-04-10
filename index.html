@@ -38,6 +38,7 @@
     const _min = min !== null ? min : !_dev;
 
     Promise.resolve()
+        // To debug Vue.js set `process.env.NODE_ENV` to `dev` (in build.js) if you does not load it from CDN.
         .then(_ => appendScript(`https://cdn.jsdelivr.net/npm/vue/dist/vue.runtime${_dev ? "" : ".min"}.js`))
         .then(_ => appendScript(`./dist/index${_min ? ".min" : ""}.js`));
 

@@ -16,16 +16,19 @@ const inputOptions = {
     input: `${filename}.js`,
     plugins: [
         css({
-            // output: `${dist}style.css`
+            // output: `${dist}style.css` // It works with 2.1.0, but not with 3.1.0
             output: writeVueStyles
         }),
         vue({
             css: false,
         }),
         replace({
-            // Change to `dev` if you want to debug the site with the Vue.js browser extension
-            // It's required only if you include Vue.js to the build (when `external: ["vue"]` is commented)
-            "process.env.NODE_ENV": "\"production\""
+            preventAssignment: true,
+            values: {
+                // Change to `dev` if you want to debug the site with the Vue.js browser extension
+                // It's required only if you include Vue.js to the build (when `external: ["vue"]` is commented)
+                "process.env.NODE_ENV": `"production"`
+            }
         }),
         resolve({
             browser: true
