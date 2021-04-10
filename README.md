@@ -1,5 +1,7 @@
 It's the demo site. 
 
+It uses Vue.js 2. For Vue.js 3 [see this repo](https://github.com/AlttiRi/formatted-number-vue3).
+
 It just shows JavaScript's `MAX_SAFE_INTEGER` value. 
 9007199254740991.
 With formatting. At the center.
