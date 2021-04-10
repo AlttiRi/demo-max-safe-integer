@@ -23,14 +23,18 @@ const inputOptions = {
             css: false,
         }),
         replace({
+            // Change to `dev` if you want to debug the site with the Vue.js browser extension
+            // It's required only if you include Vue.js to the build (when `external: ["vue"]` is commented)
             "process.env.NODE_ENV": "\"production\""
         }),
         resolve({
             browser: true
         }),
-        appendFinally(sourceMappingURL(filename))
+        appendFinally(sourceMappingURL(filename)) // I use it since I write maps manually
     ],
-    external: ["vue"], // In order to use "vue.runtime.min.js", (the app code is NOT compressed and mangled)
+    // In order to use Vue.js from CDN. (So, it possible to use minified Vue.js with not minified main code)
+    // V2: "vue.runtime.min.js"         / "vue.runtime.js"
+    external: ["vue"],
 };
 
 /** @type {import("rollup").OutputOptions} */
@@ -81,6 +85,11 @@ async function minify(code, map, filename) {
     };
 }
 
+/**
+ * Removes sourceMappingURL string and add component file name (as a comment) for a header purpose.
+ * For  "vue": "^2.6.11"
+ * with "rollup-plugin-css-only": "^2.1.0",
+ */
 async function writeVueStyles(styles, styleNodes, meta) {
     const styleBunch = Object.values(styleNodes)
         .filter(text => text.trim())
